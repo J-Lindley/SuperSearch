@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SuperSearch</title>
+
+    <!-- Links to Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Links to Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- Links to CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Links to Firebase -->
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+
+    <!-- Links to jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- link to google maps api -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPkD2wLsmtwAvS9gmxkggaRFpKdCDtUsM"
+        type="text/javascript"></script>
+</head>
+
+<body>
+    <!-- Bootstrap container -->
+    <!-- Header -->
+    <header>
+        <img src="assets/image/header.jpg" alt="Superhero Header" width="100%">
+    </header>
+    <br>
+    <!-- App details-->
+    <div class="container">
+        <!-- Search Bar -->
+        <div class="row">
+            <div class="col-md-12">
+                <p><i class="fas fa-question-circle"></i><b> How to use SuperSearch: </b>Just enter a superhero name,
+                    comic book title, comic book movie, or
+                    any
+                    other comic-related term to
+                    get quick results! Check out images of related comic book covers, check for movie listings, or enjoy
+                    original soundtracks through Spotify.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 logo"><img src="assets/image/LOGO.png" alt="logo" width="100%"></div>
+            <div class="col-md-8 search_bar">
+                <input type="text" class="form-control" id="searchAll"
+                    placeholder="Enter superhero, comic book title, etc.">
+            </div>
+            <div class="col-md-1 icon">
+                <button id="submit-button"><i class="fas fa-search"></i>
+            </div>
+            <div class="col-md-1 icon">
+                <button id="reload-button"><i class="fas fa-redo-alt"></i>
+            </div>
+            <!-- Div for error message when user input is not validated -->
+            <div id="errorMessage"></div>
+            <br>
+                
+        </div>
+    </div>
+
+    <!-- Search Parameters -->
+    <div class="container">
+        <div class="row">
+            <!-- tabs -->
+            <div class="tab col-md-12">
+                <button id="Character_tab" class="tablinks active"
+                    onclick="openSearch(event, 'Character')">Character</button>
+                <button id="Images_tab" class="tablinks" onclick="openSearch(event, 'Images')">Images</button>
+                <button id="Movies_tab" class="tablinks" onclick="openSearch(event, 'Movies')">Movies</button>
+                <button id="Music_tab" class="tablinks" onclick="openSearch(event, 'Music')">Music</button>
+                <button id="Stores_tab" class="tablinks" onclick="openSearch(event, 'Stores')">Stores</button>
+            </div>
+        </div>
+
+        <!-- Search Results -->
+        <div class="row">
+            <div class="col-md-12">
+                <!-- set Character as default display -->
+                <div id="Character" class="tabcontent" style="display:block">
+                    <h3>Character</h3>
+                    <p>Input your favorite superhero in the search box above! We will come back with all the information
+                        you could ever need. Make sure to click on the tabs to find some awesome covers, links to movie
+                        posters with cast and crew links, soundtracks to listen to, stores to find comics, graphic
+                        novels, gear, and more.</p>
+                </div>
+
+                <div id="Images" class="tabcontent">
+                    <h3>Images</h3>
+                    <p>Input your favorite superhero in the search box above! We will come back with all the information
+                        you could ever need. Make sure to click on the tabs to find some awesome covers, links to movie
+                        posters with cast and crew links, soundtracks to listen to, stores to find comics, graphic
+                        novels, gear, and more.</p>
+                </div>
+
+                <div id="Movies" class="tabcontent">
+                    <h3>Movies</h3>
+                    <p>Input your favorite superhero in the search box above! We will come back with all the information
+                        you could ever need. Make sure to click on the tabs to find some awesome covers, links to movie
+                        posters with cast and crew links, soundtracks to listen to, stores to find comics, graphic
+                        novels, gear, and more.</p>
+                </div>
+
+                <div id="Music" class="tabcontent">
+                    <h3>Music</h3>
+                    <p>Input your favorite superhero in the search box above! We will come back with all the information
+                        you could ever need. Make sure to click on the tabs to find some awesome covers, links to movie
+                        posters with cast and crew links, soundtracks to listen to, stores to find comics, graphic
+                        novels, gear, and more.</p>
+                </div>
+
+                <div id="Stores" class="tabcontent">
+                    <h3>Stores</h3>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <input type="text" class="form-control" id="zipcode"
+                                placeholder="Enter your zip code or city name to find the comic stores nearby.">
+                        </div>
+                        <button type="submit" id="zip_submit">Submit</button>
+                        <br>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div id="map"></div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-12"></div>
+            </div>
+        </footer>
+
+        <!-- End of Bootstrap container -->
+    </div>
+
+    <!-- link to movie.js file -->
+    <script src="assets/javascript/movie.js"></script>
+    <!-- link to images.js file -->
+    <script src="assets/javascript/images.js"></script>
+    <!-- link to music.js file -->
+    <script src="assets/javascript/music.js"></script>
+    <!-- link to character.js file -->
+    <script src="assets/javascript/character.js"></script>
+    <!-- link to store.js file -->
+    <script src="assets/javascript/store.js"></script>
+
+</body>
+
+</html>
